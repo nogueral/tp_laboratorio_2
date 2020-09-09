@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Entidades
 {
-    class Numero
+    public class Numero
     {
         private double numero;
 
@@ -37,7 +35,7 @@ namespace Entidades
                     {
                         acumulador += Math.Pow(2, i);
                     }
-                    
+
                 }
 
                 resultado = acumulador.ToString();
@@ -74,9 +72,18 @@ namespace Entidades
                     numeroEntero = numeroEntero / 2;
 
                 }
-            } else
+            }
+            else
             {
-                resultado = "Valor invalido";
+                if (numeroEntero == 0)
+                {
+                    resultado = "0";
+
+                } else
+                {
+                    resultado = "Valor invalido";
+                }
+
             }
 
             return resultado;
@@ -112,7 +119,7 @@ namespace Entidades
 
             for (int i = 0; i < array.Length; i++)
             {
-                if(array[i] != '0' && array[i] != '1')
+                if (array[i] != '0' && array[i] != '1')
                 {
                     retorno = false;
                     break;
@@ -193,7 +200,8 @@ namespace Entidades
             {
                 return double.MinValue;
 
-            } else
+            }
+            else
             {
                 return n1.numero / n2.numero;
             }
@@ -208,7 +216,7 @@ namespace Entidades
         {
             double auxNumero;
 
-            if(!double.TryParse(strNumero, out auxNumero))
+            if (!double.TryParse(strNumero, out auxNumero))
             {
                 auxNumero = 0;
             }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    static class Calculadora
+    public static class Calculadora
     {
         /// <summary>
         /// Valida que el elemento recibido sera un operador "+, -, * o /"
@@ -17,7 +17,7 @@ namespace Entidades
         {
             string operadorRetorno = "+";
 
-            if(operador == '+' || operador == '-' || operador == '*' || operador == '/')
+            if (operador == '+' || operador == '-' || operador == '*' || operador == '/')
             {
                 operadorRetorno = Convert.ToString(operador);
             }
@@ -32,7 +32,7 @@ namespace Entidades
         /// <param name="n2">Objeto de tipo numero</param>
         /// <param name="operador">Operador en formato string</param>
         /// <returns>El resultado de la operacion</returns>
-        private static double Operar(Numero n1, Numero n2, string operador)
+        public static double Operar(Numero n1, Numero n2, string operador)
         {
             char auxValidar;
             string auxOperador;
