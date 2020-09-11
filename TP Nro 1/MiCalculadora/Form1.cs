@@ -27,12 +27,18 @@ namespace MiCalculadora
         {
             this.txtNumero1.Clear();
             this.txtNumero2.Clear();
-            this.cmbOperador.Text = "+";
+            this.cmbOperador.ResetText();
+            this.cmbOperador.Text = null;
             this.lblResultado.Text = "Resultado";
         }
 
         private void btnOperar_Click(object sender, EventArgs e)
         {
+            if (this.cmbOperador.SelectedItem == null)
+            {
+                this.cmbOperador.Text = "+";
+            }
+            
             this.lblResultado.Text = Operar(this.txtNumero1.Text, this.txtNumero2.Text, this.cmbOperador.SelectedItem.ToString());
         }
 
