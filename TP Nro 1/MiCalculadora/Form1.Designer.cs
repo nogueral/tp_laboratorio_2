@@ -101,6 +101,7 @@
             // 
             // cmbOperador
             // 
+            this.cmbOperador.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbOperador.FormattingEnabled = true;
             this.cmbOperador.ItemHeight = 24;
             this.cmbOperador.Items.AddRange(new object[] {
