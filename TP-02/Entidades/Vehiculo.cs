@@ -60,6 +60,10 @@ namespace Entidades
             return sb.ToString();
         }
 
+        /// <summary>
+        /// COnversor explicito
+        /// </summary>
+        /// <param name="p"></param>
         public static explicit operator string(Vehiculo p)
         {
             return p.Mostrar();

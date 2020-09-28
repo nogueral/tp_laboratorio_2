@@ -22,10 +22,19 @@ namespace Entidades
         }
 
         #region "Constructores"
+       
+        /// <summary>
+        /// Constructor por defecto
+        /// </summary>
         private Taller()
         {
             this.vehiculos = new List<Vehiculo>();
         }
+        
+        /// <summary>
+        /// Contructor parametrizado
+        /// </summary>
+        /// <param name="espacioDisponible"></param>
         public Taller(int espacioDisponible):this()
         {
             this.espacioDisponible = espacioDisponible;
