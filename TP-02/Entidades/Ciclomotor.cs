@@ -33,7 +33,7 @@ namespace Entidades
         /// Muestra todos los datos del vehiculo
         /// </summary>
         /// <returns></returns>
-        public override sealed string Mostrar()
+        public override string Mostrar()
         {
             StringBuilder sb = new StringBuilder();
 

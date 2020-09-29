@@ -38,11 +38,7 @@ namespace Entidades
         /// <summary>
         /// ReadOnly: Retornará el tamaño
         /// </summary>
-        public virtual ETamanio Tamanio
-        {
-            get { return this.Tamanio; }
-        }
-
+        public abstract ETamanio Tamanio { get; }
 
         /// <summary>
         /// Publica todos los datos del Vehiculo.
@@ -61,13 +57,14 @@ namespace Entidades
         }
 
         /// <summary>
-        /// COnversor explicito
+        /// Override metodo ToString
         /// </summary>
-        /// <param name="p"></param>
-        public static explicit operator string(Vehiculo p)
+        /// <returns></returns>
+        public override string ToString()
         {
-            return p.Mostrar();
+            return this.Mostrar();
         }
+
 
         /// <summary>
         /// Dos vehiculos son iguales si comparten el mismo chasis
