@@ -10,17 +10,20 @@ namespace Entidades
 {
     public class Sedan : Vehiculo
     {
+        #region Enumerados
         public enum ETipo 
         { 
             CuatroPuertas, 
             CincoPuertas 
         }
+        #endregion
 
         ETipo tipo;
 
+        #region Constructores
 
         /// <summary>
-        /// Por defecto, TIPO será Monovolumen
+        /// Por defecto, TIPO será CuatroPuertas
         /// </summary>
         /// <param name="marca"></param>
         /// <param name="chasis"></param>
@@ -31,7 +34,7 @@ namespace Entidades
         }
 
         /// <summary>
-        /// Parametrizado, permite seleccionar tipo
+        /// Esta sobrecarga permite seleccionar tipo
         /// </summary>
         /// <param name="marca"></param>
         /// <param name="chasis"></param>
@@ -41,6 +44,10 @@ namespace Entidades
         {
             this.tipo = tipo;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Los automoviles son medianos
@@ -53,10 +60,14 @@ namespace Entidades
             }
         }
 
+        #endregion
+
+        #region Sobrecargas
+
         /// <summary>
-        /// Muestra todos los datos del vehiculo
+        /// Crea un stringbuilder con todos los datos del vehiculo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>un string con todos los datos</returns>
         public override string Mostrar()
         {
             StringBuilder sb = new StringBuilder();
@@ -70,5 +81,7 @@ namespace Entidades
 
             return sb.ToString();
         }
+
+        #endregion
     }
 }

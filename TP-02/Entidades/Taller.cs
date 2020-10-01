@@ -13,6 +13,8 @@ namespace Entidades
     {
         List<Vehiculo> vehiculos;
         int espacioDisponible;
+
+        #region Enumerados
         public enum ETipo
         {
             Ciclomotor, 
@@ -20,9 +22,10 @@ namespace Entidades
             SUV, 
             Todos
         }
+        #endregion
 
-        #region "Constructores"
-       
+        #region Constructores
+
         /// <summary>
         /// Constructor por defecto
         /// </summary>
@@ -32,7 +35,7 @@ namespace Entidades
         }
         
         /// <summary>
-        /// Contructor parametrizado
+        /// Contructor parametrizado, recibe espacio disponible
         /// </summary>
         /// <param name="espacioDisponible"></param>
         public Taller(int espacioDisponible):this()
@@ -41,7 +44,7 @@ namespace Entidades
         }
         #endregion
 
-        #region "Sobrecargas"
+        #region Sobrecargas
         /// <summary>
         /// Muestro el estacionamiento y TODOS los vehículos
         /// </summary>
@@ -50,9 +53,56 @@ namespace Entidades
         {
             return Listar(this, ETipo.Todos);
         }
+
+        /// <summary>
+        /// Agregará un elemento a la lista
+        /// </summary>
+        /// <param name="taller">Objeto donde se agregará el elemento</param>
+        /// <param name="vehiculo">Objeto a agregar</param>
+        /// <returns></returns>
+        public static Taller operator +(Taller t, Vehiculo vehiculo)
+        {
+            if (t.vehiculos.Count < t.espacioDisponible)
+            {
+                foreach (Vehiculo v in t.vehiculos)
+                {
+                    if (v == vehiculo)
+                    {
+                        return t;
+                    }
+
+                }
+
+                t.vehiculos.Add(vehiculo);
+                return t;
+            }
+
+            return t;
+
+        }
+        /// <summary>
+        /// Quitará un elemento de la lista
+        /// </summary>
+        /// <param name="taller">Objeto donde se quitará el elemento</param>
+        /// <param name="vehiculo">Objeto a quitar</param>
+        /// <returns></returns>
+        public static Taller operator -(Taller t, Vehiculo vehiculo)
+        {
+            foreach (Vehiculo v in t.vehiculos)
+            {
+                if (v == vehiculo)
+                {
+                    t.vehiculos.Remove(v);
+                    return t;
+                }
+            }
+
+            return t;
+        }
+
         #endregion
 
-        #region "Métodos"
+        #region Métodos
 
         /// <summary>
         /// Expone los datos del elemento y su lista (incluidas sus herencias)
@@ -99,51 +149,6 @@ namespace Entidades
         }
         #endregion
 
-        #region "Operadores"
-        /// <summary>
-        /// Agregará un elemento a la lista
-        /// </summary>
-        /// <param name="taller">Objeto donde se agregará el elemento</param>
-        /// <param name="vehiculo">Objeto a agregar</param>
-        /// <returns></returns>
-        public static Taller operator +(Taller t, Vehiculo vehiculo)
-        {
-            if (t.vehiculos.Count < t.espacioDisponible)
-            {
-                foreach (Vehiculo v in t.vehiculos)
-                {
-                    if (v == vehiculo)
-
-
-                        return t;
-                }
-
-                t.vehiculos.Add(vehiculo);
-                return t;
-            }
-
-            return t;
-
-        }
-        /// <summary>
-        /// Quitará un elemento de la lista
-        /// </summary>
-        /// <param name="taller">Objeto donde se quitará el elemento</param>
-        /// <param name="vehiculo">Objeto a quitar</param>
-        /// <returns></returns>
-        public static Taller operator -(Taller t, Vehiculo vehiculo)
-        {
-            foreach (Vehiculo v in t.vehiculos)
-            {
-                if (v == vehiculo)
-                {
-                    t.vehiculos.Remove(v);
-                    return t;
-                }
-            }
-
-            return t;
-        }
-        #endregion
+        
     }
 }

@@ -8,6 +8,7 @@ namespace Entidades
 {
     public class Ciclomotor : Vehiculo
     {
+        #region Constructor
         /// <summary>
         /// Constructor por defecto
         /// </summary>
@@ -17,7 +18,9 @@ namespace Entidades
         public Ciclomotor(EMarca marca, string chasis, ConsoleColor color):base(chasis, marca, color)
         {
         }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Las motos son chicas
         /// </summary>
@@ -28,11 +31,13 @@ namespace Entidades
                 return ETamanio.Chico;
             }
         }
+        #endregion
 
+        #region Sobrecargas
         /// <summary>
-        /// Muestra todos los datos del vehiculo
+        /// Crea un stringbuilder con todos los datos del vehiculo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Un string con todos los datos</returns>
         public override string Mostrar()
         {
             StringBuilder sb = new StringBuilder();
@@ -45,5 +50,6 @@ namespace Entidades
 
             return sb.ToString();
         }
+        #endregion
     }
 }

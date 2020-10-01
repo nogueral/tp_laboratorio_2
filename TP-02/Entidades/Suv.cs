@@ -5,9 +5,23 @@ namespace Entidades
 {
     public class Suv : Vehiculo
     {
+
+        #region Constructor
+
+        /// <summary>
+        /// Cconstructor
+        /// </summary>
+        /// <param name="marca"></param>
+        /// <param name="chasis"></param>
+        /// <param name="color"></param>
         public Suv(EMarca marca, string chasis, ConsoleColor color): base(chasis, marca, color)
         {
         }
+
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// Las camionetas son grandes
         /// </summary>
@@ -19,10 +33,14 @@ namespace Entidades
             }
         }
 
+        #endregion
+
+        #region Sobrecargas
+
         /// <summary>
-        /// Publica todos los datos del vehiculo
+        /// Crea un stringbuilder con todos los datos del vehiculo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>un string con todos los datos</returns>
         public override string Mostrar()
         {
             StringBuilder sb = new StringBuilder();
@@ -35,5 +53,7 @@ namespace Entidades
 
             return sb.ToString();
         }
+
+        #endregion
     }
 }

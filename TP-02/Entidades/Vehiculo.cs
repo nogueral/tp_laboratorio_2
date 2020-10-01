@@ -14,6 +14,7 @@ namespace Entidades
     /// </summary>
     public abstract class Vehiculo
     {
+        #region Enumerados
         public enum EMarca
         {
             Chevrolet, 
@@ -30,63 +31,13 @@ namespace Entidades
             Mediano, 
             Grande
         }
+        #endregion
 
         EMarca marca;
         string chasis;
         ConsoleColor color;
 
-        /// <summary>
-        /// ReadOnly: Retornará el tamaño
-        /// </summary>
-        public abstract ETamanio Tamanio { get; }
-
-        /// <summary>
-        /// Publica todos los datos del Vehiculo.
-        /// </summary>
-        /// <returns></returns>
-        public virtual string Mostrar()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine($"CHASIS: {this.chasis}");
-            sb.AppendLine($"MARCA: {this.marca.ToString()}");
-            sb.AppendLine($"COLOR: {this.color.ToString()}");
-            sb.AppendLine("---------------------");
-
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Override metodo ToString
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return this.Mostrar();
-        }
-
-
-        /// <summary>
-        /// Dos vehiculos son iguales si comparten el mismo chasis
-        /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <returns></returns>
-        public static bool operator ==(Vehiculo v1, Vehiculo v2)
-        {
-            return (v1.chasis == v2.chasis);
-        }
-        /// <summary>
-        /// Dos vehiculos son distintos si su chasis es distinto
-        /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <returns></returns>
-        public static bool operator !=(Vehiculo v1, Vehiculo v2)
-        {
-            return !(v1.chasis == v2.chasis);
-        }
-
+        #region Constructor
         /// <summary>
         /// Constructor
         /// </summary>
@@ -99,5 +50,65 @@ namespace Entidades
             this.marca = marca;
             this.color = color;
         }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// ReadOnly: Retornará el tamaño
+        /// </summary>
+        public abstract ETamanio Tamanio { get; }
+
+        #endregion
+
+        #region Metodos
+        /// <summary>
+        /// Publica todos los datos del Vehiculo.
+        /// </summary>
+        /// <returns>un string con todos los datos</returns>
+        public virtual string Mostrar()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine($"CHASIS: {this.chasis}");
+            sb.AppendLine($"MARCA: {this.marca.ToString()}");
+            sb.AppendLine($"COLOR: {this.color.ToString()}");
+            sb.AppendLine("---------------------");
+
+            return sb.ToString();
+        }
+        #endregion
+
+        #region Sobrecargas
+        /// <summary>
+        /// Sobrecarga operador string
+        /// </summary>
+        /// <returns>Metodo Mostrar del vehiculo en cuestion</returns>
+        public static explicit operator string (Vehiculo p)
+        {
+            return p.Mostrar();
+        }
+
+        /// <summary>
+        /// Dos vehiculos son iguales si comparten el mismo chasis
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns>true si comparten el mismo chasis, false caso contrario</returns>
+        public static bool operator ==(Vehiculo v1, Vehiculo v2)
+        {
+            return (v1.chasis == v2.chasis);
+        }
+
+        /// <summary>
+        /// Dos vehiculos son distintos si su chasis es distinto
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns>true si no comparten el mismo chasis, false caso contrario</returns>
+        public static bool operator !=(Vehiculo v1, Vehiculo v2)
+        {
+            return !(v1.chasis == v2.chasis);
+        }
+        #endregion
     }
 }
