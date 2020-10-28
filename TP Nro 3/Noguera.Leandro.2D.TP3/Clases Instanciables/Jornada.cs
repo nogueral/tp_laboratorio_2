@@ -149,7 +149,7 @@ namespace Clases_Instanciables
         /// <returns>true si se guardo correctamente, false caso contrario</returns>
         public static bool Guardar(Jornada jornada)
         {
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Jornada.txt");
+            string path = String.Concat(AppDomain.CurrentDomain.BaseDirectory, "Jornada.txt");
             Texto auxTexto = new Texto();
 
             return auxTexto.Guardar(path, jornada.ToString());
