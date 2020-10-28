@@ -1,0 +1,16 @@
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\bin\Debug\Main.exe.config
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\bin\Debug\Main.exe
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\bin\Debug\Main.pdb
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\bin\Debug\Clases Abstractas.dll
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\bin\Debug\Clases Instanciables.dll
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\bin\Debug\Excepciones.dll
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\bin\Debug\Clases Abstractas.pdb
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\bin\Debug\Clases Instanciables.pdb
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\bin\Debug\Excepciones.pdb
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\obj\Debug\Main.csprojAssemblyReference.cache
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\obj\Debug\Main.csproj.CoreCompileInputs.cache
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\obj\Debug\Main.csproj.CopyComplete
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\obj\Debug\Main.exe
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\obj\Debug\Main.pdb
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\bin\Debug\Archivos.dll
+C:\Users\CX SLIM\Desktop\tp_laboratorio_2\TP Nro 3\Noguera.Leandro.2D.TP3\Main\bin\Debug\Archivos.pdb
