@@ -155,7 +155,7 @@ namespace Clases_Abstractas
         {
             if (dato < 1 || dato > 99999999)
             {
-                throw new DniInvalidoException("El DNI ingresado es invalido");
+                throw new DniInvalidoException("El DNI ingresado esta fuera de los parametros permitidos");
             }
 
             switch (nacionalidad)

@@ -31,10 +31,10 @@ namespace Archivos
                     return true;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
-                throw new ArchivosException(e);
+                throw new ArchivosException("Error al intentar guardar archivo de texto");
             }
 
             return false;
@@ -61,10 +61,10 @@ namespace Archivos
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
-                throw new ArchivosException(e);
+                throw new ArchivosException("Error al intentar leer archivo de texto");
             }
 
             return false;

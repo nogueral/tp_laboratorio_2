@@ -11,7 +11,16 @@ namespace Excepciones
         /// <summary>
         /// Constructor parametrizado
         /// </summary>
-        public SinProfesorException() : base("No hay profesor disponible para la clase solicitada")
+        public SinProfesorException() : base("Sin profesor disponible")
+        {
+
+        }
+
+        /// <summary>
+        /// Constructor parametrizado
+        /// </summary>
+        /// <param name="mensaje"></param>
+        public SinProfesorException(string mensaje) : base(mensaje)
         {
 
         }

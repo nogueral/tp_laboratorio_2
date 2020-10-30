@@ -11,7 +11,7 @@ namespace Excepciones
         /// <summary>
         /// Constructor 
         /// </summary>
-        public NacionalidadInvalidaException() : base()
+        public NacionalidadInvalidaException() : base("Nacionalidad invalida")
         {
 
         }

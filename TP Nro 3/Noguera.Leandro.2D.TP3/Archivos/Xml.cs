@@ -38,7 +38,7 @@ namespace Archivos
             catch (Exception e)
             {
 
-                throw new ArchivosException(e);
+                throw new ArchivosException("Error al intentar guardar archivo xml");
             }
 
             return false;
@@ -71,7 +71,7 @@ namespace Archivos
             catch (Exception e)
             {
 
-                throw new ArchivosException(e);
+                throw new ArchivosException("Error al intentar leer archivo xml");
             }
 
             return false;

@@ -11,7 +11,7 @@ namespace Excepciones
         /// <summary>
         /// Constructor
         /// </summary>
-        public DniInvalidoException() : base ()
+        public DniInvalidoException() : base ("DNI Invalido")
         {
 
         }

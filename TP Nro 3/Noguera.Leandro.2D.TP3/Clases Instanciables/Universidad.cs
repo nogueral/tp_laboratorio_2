@@ -223,7 +223,7 @@ namespace Clases_Instanciables
                 }
             }
 
-            throw new SinProfesorException();
+            throw new SinProfesorException("No hay profesor disponible para la clase requerida");
         }
 
         /// <summary>
@@ -259,7 +259,7 @@ namespace Clases_Instanciables
 
             } else
             {
-                throw new AlumnoRepetidoException();
+                throw new AlumnoRepetidoException("El alumno que intenta cargar, ya fue agregado a la lista previamente");
             }
 
             return u;

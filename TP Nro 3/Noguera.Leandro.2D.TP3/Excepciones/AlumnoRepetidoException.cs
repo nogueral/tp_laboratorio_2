@@ -11,7 +11,16 @@ namespace Excepciones
         /// <summary>
         /// Constructor
         /// </summary>
-        public AlumnoRepetidoException() : base("El alumno, ya fue cargado previamente")
+        public AlumnoRepetidoException() : base("Alumno repetido")
+        {
+
+        }
+
+        /// <summary>
+        /// Constructor parametrizado
+        /// </summary>
+        /// <param name="mensaje"></param>
+        public AlumnoRepetidoException(string mensaje) : base(mensaje)
         {
 
         }
