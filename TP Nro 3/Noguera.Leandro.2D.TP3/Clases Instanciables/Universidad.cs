@@ -80,9 +80,31 @@ namespace Clases_Instanciables
         /// <returns></returns>
         public Jornada this [int i]
         {
-            get { return this.jornada[i]; }
+            get 
+            { 
+                if(i >=0 && i < this.jornada.Count)
+                {
+                    return this.jornada[i];
+                }
+                else
+                {
+                    throw new ArchivosException("Indice invalido");
+                }    
+            
+            }
 
-            set { this.jornada[i] = value; }
+            set 
+            {
+                if (i >= 0 && i < this.jornada.Count)
+                {
+                    this.jornada[i] = value;
+                }
+                else
+                {
+                    throw new ArchivosException("Indice invalido");
+                }
+
+            }
         }
         #endregion
 
@@ -242,7 +264,7 @@ namespace Clases_Instanciables
                 }
             }
 
-            return null;
+            throw new SinProfesorException();
         }
 
         /// <summary>
