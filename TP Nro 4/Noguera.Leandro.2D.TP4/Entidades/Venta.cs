@@ -152,5 +152,75 @@ namespace Entidades
             return datos;
         }
         #endregion
+
+        #region Sobrecargas
+
+        /// <summary>
+        /// Verifica si una venta ya esta cargada a la lista de ventas
+        /// </summary>
+        /// <param name="listaVentas"></param>
+        /// <param name="v"></param>
+        /// <returns>true si esta cargada, false caso contrario</returns>
+        public static bool operator ==(List<Venta> listaVentas, Venta v)
+        {
+            foreach (Venta item in listaVentas)
+            {
+                if (item.TicketNro == v.TicketNro)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Verifica si una venta no esta cargada a la lista de ventas
+        /// </summary>
+        /// <param name="listaVentas"></param>
+        /// <param name="v"></param>
+        /// <returns>true si no esta cargada, false caso contrario</returns>
+        public static bool operator !=(List<Venta> listaVentas, Venta v)
+        {
+            return !(listaVentas == v);
+        }
+
+        /// <summary>
+        /// Carga una nueva venta a la lista. Descuenta del stock los productos comprados e imprime el ticket de compra en formato txt
+        /// </summary>
+        /// <param name="listaVentas"></param>
+        /// <param name="v"></param>
+        /// <returns>true si se cargo la venta, false caso contrario</returns>
+        public static bool operator +(List<Venta> listaVentas, Venta v)
+        {
+            if (listaVentas != v)
+            {
+                Producto prod;
+
+                for (int i = 0; i < v.Items.Count; i++)
+                {
+                    for (int j = 0; j < Inventario.Productos.Count; j++)
+                    {
+                        if (v.Items[i].Id == Inventario.Productos[j].Id)
+                        {
+                            prod = Inventario.Productos[j];
+                            prod.Cantidad -= 1;
+                            v.MontoTotal += Inventario.Productos[j].Precio;
+                            prod.Modificar();
+                            break;
+                        }
+                    }
+                }
+
+                listaVentas.Add(v);
+                Venta.PrintTicket(v);
+                return true;
+            }
+            else
+            {
+                throw new VentasException("Esta venta ya se encuentra cerrada");
+            }
+        }
+        #endregion
     }
 }

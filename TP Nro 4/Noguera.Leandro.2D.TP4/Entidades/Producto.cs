@@ -143,14 +143,11 @@ namespace Entidades
         /// <summary>
         /// Verifica si un producto se encuentra cargado en la base de datos
         /// </summary>
-        /// <param name="auxInventario"></param>
+        /// <param name="productos"></param>
         /// <param name="auxProducto"></param>
         /// <returns>true si lo encuentra, false caso contrario</returns>
-        public static bool operator ==(Inventario auxInventario, Producto auxProducto)
+        public static bool operator ==(List<Producto> productos, Producto auxProducto)
         {
-            List<Producto> productos = new List<Producto>();
-
-            productos = ProductoDAO.Leer();
 
             foreach (Producto item in productos)
             {
@@ -166,55 +163,54 @@ namespace Entidades
         /// <summary>
         /// Verifica si un producto no se encuentra cargado en la base de datos
         /// </summary>
-        /// <param name="auxInventario"></param>
+        /// <param name="productos"></param>
         /// <param name="auxProducto"></param>
         /// <returns>true si no lo encuentra, false caso contrario</returns>
-        public static bool operator !=(Inventario auxInventario, Producto auxProducto)
+        public static bool operator !=(List<Producto> productos, Producto auxProducto)
         {
-            return !(auxInventario == auxProducto);
+            return !(productos == auxProducto);
         }
 
         /// <summary>
         /// Verifica si un producto no esta cargado en la base de datos y lo agrega
         /// </summary>
-        /// <param name="auxInventario"></param>
+        /// <param name="productos"></param>
         /// <param name="auxProducto"></param>
-        /// <returns>el objeto de tipo inventario con el producto cargado, si ya se encontraba en la lista lanza ProductosException</returns>
-        public static Inventario operator +(Inventario auxInventario, Producto auxProducto)
+        /// <returns>true si logra cargar el producto, si ya se encontraba en la lista lanza ProductosException</returns>
+        public static bool operator +(List<Producto> productos, Producto auxProducto)
         {
 
-            if (auxInventario != auxProducto)
+            if (productos != auxProducto)
             {
                 auxProducto.Guardar();
-                
+                return true;
             }
             else
             {
                 throw new ProductosException("Producto previamente cargado a la base de datos");
             }
 
-            return auxInventario;
         }
 
         /// <summary>
         /// Verifica si un producto no esta cargado en la base de datos y lo elimina
         /// </summary>
-        /// <param name="auxInventario"></param>
+        /// <param name="productos"></param>
         /// <param name="auxProducto"></param>
         /// <returns>el objeto de tipo inventario con el producto borrado, si no se encontraba en la lista lanza ProductosException</returns>
-        public static Inventario operator -(Inventario auxInventario, Producto auxProducto)
+        public static bool operator -(List<Producto> productos, Producto auxProducto)
         {
-            if (auxInventario == auxProducto)
+            if (productos == auxProducto)
             {
                 auxProducto.Eliminar();
-                
+                return true;
             } 
             else
             {
                 throw new ProductosException("Este producto no se encuentra cargado en la base de datos");
             }
 
-            return auxInventario;
+
         }
 
         #endregion
@@ -262,7 +258,8 @@ namespace Entidades
         /// <returns>True si se inserto, false caso contrario</returns>
         public bool Guardar()
         {
-            return ProductoDAO.InsertarProducto(this);
+            ProductoDAO prod = new ProductoDAO();
+            return prod.InsertarProducto(this);
         }
 
         /// <summary>
@@ -271,7 +268,8 @@ namespace Entidades
         /// <returns>True si se modifico, false caso contrario</returns>
         public bool Modificar()
         {
-            return ProductoDAO.ModificarProducto(this);
+            ProductoDAO prod = new ProductoDAO();
+            return prod.ModificarProducto(this);
         }
 
 
@@ -281,7 +279,8 @@ namespace Entidades
         /// <returns>True si se elimino, false caso contrario</returns>
         public bool Eliminar()
         {
-            return ProductoDAO.EliminarProducto(this);
+            ProductoDAO prod = new ProductoDAO();
+            return prod.EliminarProducto(this);
         }
         #endregion
     }

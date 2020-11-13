@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FormProducto.Properties
+namespace FormCargaProducto.Properties
 {
 
 

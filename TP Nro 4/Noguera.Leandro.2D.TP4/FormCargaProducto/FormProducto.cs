@@ -11,24 +11,18 @@ using Archivos;
 using Entidades;
 using Excepciones;
 
-namespace FormProducto
+namespace FormCargaProducto
 {
     public partial class FormProducto : Form
     {
-        Inventario inventario;
-
-        #region Constructor
         /// <summary>
         /// Constructor
         /// </summary>
         public FormProducto()
         {
             InitializeComponent();
-            inventario = new Inventario();
         }
-        #endregion
 
-        #region Metodos
         /// <summary>
         /// Establece el origen de datos del combobox desde Producto.ETipo
         /// </summary>
@@ -40,38 +34,7 @@ namespace FormProducto
         }
 
         /// <summary>
-        /// Cierra el formulario
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSalir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        /// <summary>
-        /// Limpia los textboxs
-        /// </summary>
-        private void Limpiar()
-        {
-            this.txtdescripcion.Clear();
-            this.txtId.Clear();
-            this.txtCantidad.Clear();
-            this.txtPrecio.Clear();
-        }
-
-        /// <summary>
-        /// Llama al metodo limpiar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            this.Limpiar();
-        }
-
-        /// <summary>
-        /// Crea un objeto de tipo Producto y lo agrega a la base de datos
+        /// Crea un objeto de tipo Producto y lo agrega a la base de dato
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -91,24 +54,30 @@ namespace FormProducto
 
                     if ((Producto.ETipo)this.cmbTipoProd.SelectedValue == Producto.ETipo.perecedero)
                     {
-                        prod = new ProductoPerecedero(this.txtdescripcion.Text, idProducto, precio, cantidad, Producto.ETipo.perecedero);
+                        prod = new ProductoPerecedero(this.txtDescripcion.Text, idProducto, precio, cantidad, Producto.ETipo.perecedero);
 
-                        inventario += prod;
-                        MessageBox.Show("Cargado con exito");
-                        MessageBox.Show(prod.ToString());
-                    } 
+                        if(Inventario.Productos + prod)
+                        {
+                            MessageBox.Show("Cargado con exito");
+                            MessageBox.Show(prod.ToString());
+                        }
+
+                    }
                     else
                     {
-                        prod = new ProductoNoPerecedero(this.txtdescripcion.Text, idProducto, precio, cantidad, Producto.ETipo.noPerecedero);
+                        prod = new ProductoNoPerecedero(this.txtDescripcion.Text, idProducto, precio, cantidad, Producto.ETipo.noPerecedero);
 
-                        inventario += prod;
-                        MessageBox.Show("Cargado con exito");
-                        MessageBox.Show(prod.ToString());
+                        if (Inventario.Productos + prod)
+                        {
+                            MessageBox.Show("Cargado con exito");
+                            MessageBox.Show(prod.ToString());
+                        }
                     }
 
                     this.Limpiar();
 
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Verifique campos numericos", "Carga de Productos");
                     this.Limpiar();
@@ -118,8 +87,39 @@ namespace FormProducto
             {
 
                 MessageBox.Show(exc.Message);
+                 this.Limpiar();
             }
         }
-        #endregion
+
+        /// <summary>
+        /// Llamada al metodo limpiar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            this.Limpiar();
+        }
+
+        /// <summary>
+        /// Limpia los textboxs
+        /// </summary>
+        private void Limpiar()
+        {
+            this.txtDescripcion.Clear();
+            this.txtId.Clear();
+            this.txtCantidad.Clear();
+            this.txtPrecio.Clear();
+        }
+
+        /// <summary>
+        /// Cierra el formulario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

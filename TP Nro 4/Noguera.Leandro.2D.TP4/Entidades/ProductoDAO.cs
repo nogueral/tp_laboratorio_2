@@ -9,16 +9,16 @@ using Excepciones;
 
 namespace Entidades
 {
-    public static class ProductoDAO
+    public class ProductoDAO
     {
-        private static SqlConnection conexion;
-        private static SqlCommand comando;
+        private SqlConnection conexion;
+        private SqlCommand comando;
 
         #region Constructor
         /// <summary>
         /// Constructor
         /// </summary>
-        static ProductoDAO()
+        public ProductoDAO()
         {
             conexion = new SqlConnection();
             conexion.ConnectionString = "Data Source=.\\sqlexpress; Initial Catalog=TP4; Integrated Security=True;";
@@ -34,7 +34,7 @@ namespace Entidades
         /// </summary>
         /// <param name="sql"></param>
         /// <returns>True si se ejecuto, false caso contrario</returns>
-        public static bool EjecutarNonQuery(string sql)
+        public bool EjecutarNonQuery(string sql)
         {
             bool ejecuto = false;
             try
@@ -62,7 +62,7 @@ namespace Entidades
         /// </summary>
         /// <param name="prod"></param>
         /// <returns>True si se guardo, false caso contrario</returns>
-        public static bool InsertarProducto(Producto prod)
+        public bool InsertarProducto(Producto prod)
         {
             string sql = "Insert into Productos(descripcion, idProducto, precio, cantidad, tipoProducto) values('" + prod.Descripcion +
                 "', " + prod.Id + ", " + prod.Precio.ToString() + ", " + prod.Cantidad.ToString() + ", '" + prod.Tipo.ToString() + "')"; 
@@ -74,7 +74,7 @@ namespace Entidades
         /// </summary>
         /// <param name="prod"></param>
         /// <returns>True si se modifico, false caso contrario</returns>
-        public static bool ModificarProducto(Producto prod)
+        public bool ModificarProducto(Producto prod)
         {
             string sql = "Update Productos Set descripcion = '" + prod.Descripcion +
                 "', idProducto = " + prod.Id + ", precio = " + prod.Precio.ToString() + ", cantidad = " + prod.Cantidad.ToString() +
@@ -88,7 +88,7 @@ namespace Entidades
         /// </summary>
         /// <param name="prod"></param>
         /// <returns>true si se elimino, false caso contrario</returns>
-        public static bool EliminarProducto(Producto prod)
+        public bool EliminarProducto(Producto prod)
         {
             string sql = "Delete Productos where id = " + prod.Id.ToString();
 
@@ -99,7 +99,7 @@ namespace Entidades
         /// Trae el listado de todos los productos guardados en la base de datos
         /// </summary>
         /// <returns>Lista de productos</returns>
-        public static List<Producto> Leer()
+        public List<Producto> Leer()
         {
             List<Producto> productos = new List<Producto>();
 
@@ -148,7 +148,7 @@ namespace Entidades
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Objeto de tipo producto</returns>
-        public static Producto LeerPorID(int id)
+        public Producto LeerPorID(int id)
         {
             Producto prod = null;
 

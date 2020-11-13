@@ -9,17 +9,17 @@ using Excepciones;
 
 namespace Entidades
 {
-    public class Inventario
+    public static class Inventario
     {
-        List<Venta> ventas;
+        static List<Venta> ventas;
 
         #region Constructor
         /// <summary>
         /// Constructor
         /// </summary>
-        public Inventario()
+        static Inventario()
         {
-            Ventas = new List<Venta>();
+            ventas = new List<Venta>();
         }
         #endregion
 
@@ -32,88 +32,19 @@ namespace Entidades
             get
             {
                 List<Producto> productos = new List<Producto>();
+                ProductoDAO prod = new ProductoDAO();
 
-                return productos = ProductoDAO.Leer();
+                return productos = prod.Leer();
             }
+
         }
 
         /// <summary>
         /// Getter / Setter lista de ventas
         /// </summary>
-        public List<Venta> Ventas { get => ventas; set => ventas = value; }
+        public static List<Venta> Ventas { get => ventas; }
         #endregion
 
-        #region Sobrecargas
-        /// <summary>
-        /// Verifica si una venta ya esta cargada a la lista de ventas
-        /// </summary>
-        /// <param name="inv"></param>
-        /// <param name="v"></param>
-        /// <returns>true si esta cargada, false caso contrario</returns>
-        public static bool operator ==(Inventario inv, Venta v)
-        {
-            foreach (Venta item in inv.ventas)
-            {
-                if(item.TicketNro == v.TicketNro)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Verifica si una venta no esta cargada a la lista de ventas
-        /// </summary>
-        /// <param name="inv"></param>
-        /// <param name="v"></param>
-        /// <returns>true si no esta cargada, false caso contrario</returns>
-        public static bool operator !=(Inventario inv, Venta v)
-        {
-            return !(inv == v);
-        }
-
-        /// <summary>
-        /// Carga una nueva venta a la lista. Descuenta del stock los productos comprados e imprime el ticket de compra en formato txt
-        /// </summary>
-        /// <param name="inv"></param>
-        /// <param name="v"></param>
-        /// <returns>objeto inventario con la nueva venta agregada a la lista</returns>
-        public static Inventario operator +(Inventario inv, Venta v)
-        {
-            if(inv != null && v != null && inv != v)
-            {
-                Producto prod;
-
-                for (int i = 0; i < v.Items.Count; i++)
-                {
-                    for (int j = 0; j < Inventario.Productos.Count; j++)
-                    {
-                        if (v.Items[i].Id == Inventario.Productos[j].Id)
-                        {
-                            prod = Inventario.Productos[j];
-                            prod.Cantidad -= 1;
-                            v.MontoTotal += Inventario.Productos[j].Precio;
-                            prod.Modificar();
-                            break;
-                        }
-                    }
-                } 
-
-                Venta.PrintTicket(v);
-                inv.Ventas.Add(v);
-            }
-            else
-            {
-                throw new VentasException("Esta venta ya se encuentra cerrada");
-            }
-
-            return inv;
-        }
-
-
-        #endregion
 
         #region Metodos
         /// <summary>
@@ -121,23 +52,23 @@ namespace Entidades
         /// </summary>
         /// <param name="inv"></param>
         /// <returns>true si lo guardo, false caso contrario</returns>
-        public static bool Guardar(Inventario inv)
+        public static bool Guardar(List<Venta> ventas)
         {
             string path = String.Concat(AppDomain.CurrentDomain.BaseDirectory, "inventario.xml");
-            Xml<Inventario> auxUni = new Xml<Inventario>();
+            Xml<List<Venta>> auxUni = new Xml<List<Venta>>();
 
-            return auxUni.Guardar(path, inv);
+            return auxUni.Guardar(path, ventas);
         }
 
         /// <summary>
         /// Lee un objeto de tipo inventario guardado en un archivo XML
         /// </summary>
         /// <returns>el objeto de tipo inventario con los datos cargados</returns>
-        public static Inventario Leer()
+        public static List<Venta> Leer()
         {
-            Inventario datos = new Inventario();
+            List<Venta> datos = new List<Venta>();
             string path = String.Concat(AppDomain.CurrentDomain.BaseDirectory, "inventario.xml");
-            Xml<Inventario> inv = new Xml<Inventario>();
+            Xml<List<Venta>> inv = new Xml<List<Venta>>();
 
             inv.Leer(path, out datos);
 
@@ -166,15 +97,141 @@ namespace Entidades
             return sb.ToString();
         }
 
-        public static Inventario PuntoVenta1(Inventario inv)
+        /// <summary>
+        /// Genera un hardcodeo de ventas a traves de un hilo
+        /// </summary>
+        public static void PuntoVenta1()
         {
-            Venta venta1 = new Venta();
-            venta1 += 1;
-            venta1 += 2;
-            venta1 += 3;
-            inv += venta1;
-            Console.WriteLine($"Se carga venta desde {Thread.CurrentThread.Name}");
+            
 
+            try
+            {
+                Venta v1 = new Venta();
+                v1 += 1;
+                v1 += 2;
+                v1 += 3;
+                v1 += 4;
+                if (Inventario.Ventas + v1)
+                {
+                    Thread.Sleep(2000);
+                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name}");
+                }
+
+            }
+            catch (VentasException e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+
+            try
+            {
+                Venta v2 = new Venta();
+                v2 += 1;
+                v2 += 2;
+                v2 += 3;
+                v2 += 4;
+                if (Inventario.Ventas + v2)
+                {
+                    Thread.Sleep(2000);
+                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name}");
+                }
+
+            }
+            catch (VentasException e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+
+            try
+            {
+                Venta v3 = new Venta();
+                v3 += 1;
+                v3 += 2;
+                v3 += 3;
+                v3 += 4;
+                if (Inventario.Ventas + v3)
+                {
+                    Thread.Sleep(2000);
+                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name}");
+                }
+
+            }
+            catch (VentasException e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// // Genera un hardcodeo de ventas a traves de un hilo
+        /// </summary>
+        public static void PuntoVenta2()
+        {
+            
+
+            try
+            {
+                Venta v1 = new Venta();
+                v1 += 1;
+                v1 += 2;
+                v1 += 3;
+                v1 += 4;
+                if (Inventario.Ventas + v1)
+                {
+                    Thread.Sleep(2000);
+                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name}");
+                }
+
+            }
+            catch (VentasException e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+
+            try
+            {
+                Venta v2 = new Venta();
+                v2 += 1;
+                v2 += 2;
+                v2 += 3;
+                v2 += 4;
+                if (Inventario.Ventas + v2)
+                {
+                    Thread.Sleep(2000);
+                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name}");
+                }
+
+            }
+            catch (VentasException e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+
+            try
+            {
+                Venta v3 = new Venta();
+                v3 += 1;
+                v3 += 2;
+                v3 += 3;
+                v3 += 4;
+                if (Inventario.Ventas + v3)
+                {
+                    Thread.Sleep(2000);
+                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name}");
+                }
+
+            }
+            catch (VentasException e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
         }
         #endregion
     }
