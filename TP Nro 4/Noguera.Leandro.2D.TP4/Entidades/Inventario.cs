@@ -233,6 +233,43 @@ namespace Entidades
                 Console.WriteLine(e.Message);
             }
         }
+
+        public static bool CargarVenta(Venta venta)
+        {
+            if (venta != null)
+            {
+                Inventario.ventas.Add(venta);
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool ModificarStock(Venta venta)
+        {
+            if (venta != null)
+            {
+                Producto prod;
+
+                for (int i = 0; i < venta.Items.Count; i++)
+                {
+                    for (int j = 0; j < Inventario.Productos.Count; j++)
+                    {
+                        if (venta.Items[i].Id == Inventario.Productos[j].Id)
+                        {
+                            prod = Inventario.Productos[j];
+                            prod.Cantidad -= 1;
+                            prod.Modificar();
+                            break;
+                        }
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
+        }
         #endregion
     }
 }

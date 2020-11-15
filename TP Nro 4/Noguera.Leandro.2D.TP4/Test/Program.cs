@@ -15,10 +15,10 @@ namespace Test
         static void Main(string[] args)
         {
             Console.Title = "Noguera.Leandro.2D.TP4";
-            ProductoPerecedero p1 = new ProductoPerecedero("Leche", 1, 62.40f, 30, Producto.ETipo.perecedero);
-            ProductoPerecedero p2 = new ProductoPerecedero("Yogur", 2, 78.66f, 30, Producto.ETipo.perecedero);
-            ProductoNoPerecedero p3 = new ProductoNoPerecedero("Galletitas", 3, 28.33f, 30, Producto.ETipo.noPerecedero);
-            ProductoNoPerecedero p4 = new ProductoNoPerecedero("Harina", 4, 28.44f, 30, Producto.ETipo.noPerecedero);
+            ProductoPerecedero p1 = new ProductoPerecedero("Leche", 1, 62, 30, Producto.ETipo.perecedero);
+            ProductoPerecedero p2 = new ProductoPerecedero("Yogur", 2, 78, 30, Producto.ETipo.perecedero);
+            ProductoNoPerecedero p3 = new ProductoNoPerecedero("Galletitas", 3, 28, 30, Producto.ETipo.noPerecedero);
+            ProductoNoPerecedero p4 = new ProductoNoPerecedero("Harina", 4, 28, 30, Producto.ETipo.noPerecedero);
             Venta venta = new Venta();
             Thread hilo1 = new Thread(Inventario.PuntoVenta1);
             Thread hilo2 = new Thread(Inventario.PuntoVenta2);

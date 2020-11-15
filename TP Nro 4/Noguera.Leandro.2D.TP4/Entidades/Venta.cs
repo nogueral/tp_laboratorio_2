@@ -8,13 +8,23 @@ using Archivos;
 
 namespace Entidades
 {
+    public delegate bool DelegadoVentas(Venta venta);
+
      public class Venta
     {
         double ticketNro;
         List<Producto> items;
         double montoTotal;
+        public static event DelegadoVentas delVentas;
 
         #region Constructor
+
+        static Venta()
+        {
+            delVentas += Inventario.ModificarStock;
+            delVentas += Inventario.CargarVenta;
+            delVentas += Venta.PrintTicket;
+        }
         /// <summary>
         /// Constructor
         /// </summary>
@@ -118,9 +128,7 @@ namespace Entidades
         /// <returns>true si imprimio el ticket, caso contrario false</returns>
         public static bool PrintTicket(Venta venta)
         {
-            string ticket = DateTime.Now.ToString("ddMMyyHHmmss");
-            string path = AppDomain.CurrentDomain.BaseDirectory + ticket;
-            double.TryParse(ticket, out venta.ticketNro);
+            string path = AppDomain.CurrentDomain.BaseDirectory + venta.ticketNro;
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Ticket Nro: {venta.ticketNro}");
@@ -151,6 +159,9 @@ namespace Entidades
 
             return datos;
         }
+
+
+
         #endregion
 
         #region Sobrecargas
@@ -195,7 +206,7 @@ namespace Entidades
         {
             if (listaVentas != v)
             {
-                Producto prod;
+                string ticket;
 
                 for (int i = 0; i < v.Items.Count; i++)
                 {
@@ -203,17 +214,20 @@ namespace Entidades
                     {
                         if (v.Items[i].Id == Inventario.Productos[j].Id)
                         {
-                            prod = Inventario.Productos[j];
-                            prod.Cantidad -= 1;
                             v.MontoTotal += Inventario.Productos[j].Precio;
-                            prod.Modificar();
                             break;
                         }
                     }
                 }
 
-                listaVentas.Add(v);
-                Venta.PrintTicket(v);
+                ticket = DateTime.Now.ToString("ddMMyyHHmmss");
+
+                if(double.TryParse(ticket, out v.ticketNro))
+                {
+                    delVentas(v);
+                }
+                
+                
                 return true;
             }
             else
@@ -221,6 +235,9 @@ namespace Entidades
                 throw new VentasException("Esta venta ya se encuentra cerrada");
             }
         }
+
+
+        
         #endregion
     }
 }
