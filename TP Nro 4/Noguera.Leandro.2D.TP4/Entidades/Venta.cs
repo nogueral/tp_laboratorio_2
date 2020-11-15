@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Excepciones;
 using Archivos;
+using System.Threading;
 
 namespace Entidades
 {
@@ -12,7 +13,7 @@ namespace Entidades
 
      public class Venta
     {
-        double ticketNro;
+        string ticketNro;
         List<Producto> items;
         double montoTotal;
         public static event DelegadoVentas delVentas;
@@ -21,16 +22,17 @@ namespace Entidades
 
         static Venta()
         {
+            delVentas += CalcularMontoTotal;
             delVentas += Inventario.ModificarStock;
+            delVentas += PrintTicket;
             delVentas += Inventario.CargarVenta;
-            delVentas += Venta.PrintTicket;
         }
         /// <summary>
         /// Constructor
         /// </summary>
         public Venta()
         {
-            ticketNro = 0;
+            ticketNro = "0";
             items = new List<Producto>();
             montoTotal = 0;
         }
@@ -40,7 +42,7 @@ namespace Entidades
         /// <summary>
         /// Getter / Setter numero de ticket
         /// </summary>
-        public double TicketNro { get => ticketNro; set => ticketNro = value; }
+        public string TicketNro { get => ticketNro; set => ticketNro = value; }
 
         /// <summary>
         /// Getter / Setter lista de productos
@@ -54,6 +56,92 @@ namespace Entidades
         #endregion
 
         #region Metodos
+
+        /// <summary>
+        /// imprime un ticket en formato txt
+        /// </summary>
+        /// <param name="venta"></param>
+        /// <returns>true si imprimio el ticket, caso contrario false</returns>
+        public static bool PrintTicket(Venta venta)
+        {
+            string ticket = DateTime.Now.ToString("ddMMyyHHmmss");
+            string path;
+
+            venta.ticketNro = ticket;
+
+            if (Thread.CurrentThread.Name == "Punto de venta 2")
+            {
+                venta.ticketNro += "_02";
+
+            } else
+            {
+                venta.ticketNro += "_01";
+                
+            }
+
+            path = AppDomain.CurrentDomain.BaseDirectory + venta.ticketNro;
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Ticket Nro: {venta.ticketNro}");
+            foreach (Producto item in venta.items)
+            {
+                sb.AppendLine(String.Format("Descripcion: {0} Precio: ${1: #,###.00}", item.Descripcion,item.Precio));
+            }
+
+            sb.AppendLine(String.Format("Monto total: ${0: #,###.00}", venta.montoTotal));
+            sb.AppendLine("<-------------------------------------------->");
+
+            Texto texto = new Texto();
+
+            return texto.Guardar(path, sb.ToString());
+        }
+
+        /// <summary>
+        /// lee un ticket guardado en formato txt
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>los datos guardados</returns>
+        public static string Leer(string path)
+        {
+            string datos;
+            Texto auxTexto = new Texto();
+
+            auxTexto.Leer(path, out datos);
+
+            return datos;
+        }
+
+        /// <summary>
+        /// Calcula y asigna el valor del monto total de una venta
+        /// </summary>
+        /// <param name="venta"></param>
+        /// <returns>true si se se efectua la carga, false caso contrario</returns>
+        public static bool CalcularMontoTotal(Venta venta)
+        {
+            if (venta != null)
+            {
+                for (int i = 0; i < venta.Items.Count; i++)
+                {
+                    for (int j = 0; j < Inventario.Productos.Count; j++)
+                    {
+                        if (venta.Items[i].Id == Inventario.Productos[j].Id)
+                        {
+                            venta.MontoTotal += Inventario.Productos[j].Precio;
+                            break;
+                        }
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        #endregion
+
+        #region Sobrecargas
+
         /// <summary>
         /// Verifica a traves del id indicado si el producto existe en la base de datos
         /// </summary>
@@ -112,59 +200,15 @@ namespace Entidades
             {
                 producto.Cantidad = 1;
                 venta.items.Add(producto);
-                
-            } else
+
+            }
+            else
             {
                 throw new VentasException("No se pudo ingresar producto a la lista. Verifique ID o stock disponible");
             }
 
             return venta;
         }
-
-        /// <summary>
-        /// imprime un ticket en formato txt
-        /// </summary>
-        /// <param name="venta"></param>
-        /// <returns>true si imprimio el ticket, caso contrario false</returns>
-        public static bool PrintTicket(Venta venta)
-        {
-            string path = AppDomain.CurrentDomain.BaseDirectory + venta.ticketNro;
-
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Ticket Nro: {venta.ticketNro}");
-            foreach (Producto item in venta.items)
-            {
-                sb.AppendLine(String.Format("Descripcion: {0} Precio: ${1: #,###.00}", item.Descripcion,item.Precio));
-            }
-
-            sb.AppendLine(String.Format("Monto total: ${0: #,###.00}", venta.montoTotal));
-            sb.AppendLine("<-------------------------------------------->");
-
-            Texto texto = new Texto();
-
-            return texto.Guardar(path, sb.ToString());
-        }
-
-        /// <summary>
-        /// lee un ticket guardado en formato txt
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns>los datos guardados</returns>
-        public static string Leer(string path)
-        {
-            string datos;
-            Texto auxTexto = new Texto();
-
-            auxTexto.Leer(path, out datos);
-
-            return datos;
-        }
-
-
-
-        #endregion
-
-        #region Sobrecargas
 
         /// <summary>
         /// Verifica si una venta ya esta cargada a la lista de ventas
@@ -206,27 +250,7 @@ namespace Entidades
         {
             if (listaVentas != v)
             {
-                string ticket;
-
-                for (int i = 0; i < v.Items.Count; i++)
-                {
-                    for (int j = 0; j < Inventario.Productos.Count; j++)
-                    {
-                        if (v.Items[i].Id == Inventario.Productos[j].Id)
-                        {
-                            v.MontoTotal += Inventario.Productos[j].Precio;
-                            break;
-                        }
-                    }
-                }
-
-                ticket = DateTime.Now.ToString("ddMMyyHHmmss");
-
-                if(double.TryParse(ticket, out v.ticketNro))
-                {
-                    delVentas(v);
-                }
-                
+                delVentas(v);
                 
                 return true;
             }

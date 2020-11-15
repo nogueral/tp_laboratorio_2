@@ -172,7 +172,7 @@ namespace Entidades
         }
 
         /// <summary>
-        /// Verifica si un producto no esta cargado en la base de datos y lo agrega
+        /// Verifica si un producto no esta cargado en la base de datos y lo agrega. Si existe, solo modifica los datos
         /// </summary>
         /// <param name="productos"></param>
         /// <param name="auxProducto"></param>
@@ -187,7 +187,8 @@ namespace Entidades
             }
             else
             {
-                throw new ProductosException("Producto previamente cargado a la base de datos");
+                auxProducto.Modificar();
+                throw new ProductosException("Producto previamente cargado a la base de datos, solo se modifican los datos");
             }
 
         }

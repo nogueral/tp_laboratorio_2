@@ -106,6 +106,7 @@ namespace Entidades
 
             try
             {
+
                 Venta v1 = new Venta();
                 v1 += 1;
                 v1 += 2;
@@ -114,7 +115,8 @@ namespace Entidades
                 if (Inventario.Ventas + v1)
                 {
                     Thread.Sleep(2000);
-                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name}");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name} ticket Nro.: {v1.TicketNro}");
                 }
 
             }
@@ -126,6 +128,7 @@ namespace Entidades
 
             try
             {
+
                 Venta v2 = new Venta();
                 v2 += 1;
                 v2 += 2;
@@ -134,7 +137,8 @@ namespace Entidades
                 if (Inventario.Ventas + v2)
                 {
                     Thread.Sleep(2000);
-                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name}");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name} ticket Nro.: {v2.TicketNro}");
                 }
 
             }
@@ -146,6 +150,7 @@ namespace Entidades
 
             try
             {
+
                 Venta v3 = new Venta();
                 v3 += 1;
                 v3 += 2;
@@ -154,7 +159,8 @@ namespace Entidades
                 if (Inventario.Ventas + v3)
                 {
                     Thread.Sleep(2000);
-                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name}");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name} ticket Nro.: {v3.TicketNro}");
                 }
 
             }
@@ -183,7 +189,8 @@ namespace Entidades
                 if (Inventario.Ventas + v1)
                 {
                     Thread.Sleep(2000);
-                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name} ticket Nro.: {v1.TicketNro}");
                 }
 
             }
@@ -195,6 +202,7 @@ namespace Entidades
 
             try
             {
+
                 Venta v2 = new Venta();
                 v2 += 1;
                 v2 += 2;
@@ -203,7 +211,8 @@ namespace Entidades
                 if (Inventario.Ventas + v2)
                 {
                     Thread.Sleep(2000);
-                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name} ticket Nro.: {v2.TicketNro}");
                 }
 
             }
@@ -215,6 +224,7 @@ namespace Entidades
 
             try
             {
+                
                 Venta v3 = new Venta();
                 v3 += 1;
                 v3 += 2;
@@ -223,7 +233,8 @@ namespace Entidades
                 if (Inventario.Ventas + v3)
                 {
                     Thread.Sleep(2000);
-                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"Se genero una nueva venta en {Thread.CurrentThread.Name} ticket Nro.: {v3.TicketNro}");
                 }
 
             }
@@ -234,6 +245,11 @@ namespace Entidades
             }
         }
 
+        /// <summary>
+        /// Agrega una nueva venta a la lista de inventario
+        /// </summary>
+        /// <param name="venta"></param>
+        /// <returns>true si se cargo, false caso contrario</returns>
         public static bool CargarVenta(Venta venta)
         {
             if (venta != null)
@@ -245,6 +261,11 @@ namespace Entidades
             return false;
         }
 
+        /// <summary>
+        /// Descuenta del stock un producto agregado a la venta
+        /// </summary>
+        /// <param name="venta"></param>
+        /// <returns>true si se desconto, false caso contrario</returns>
         public static bool ModificarStock(Venta venta)
         {
             if (venta != null)
