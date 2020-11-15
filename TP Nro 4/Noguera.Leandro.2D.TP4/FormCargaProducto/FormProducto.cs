@@ -46,6 +46,8 @@ namespace FormCargaProducto
                 double precio;
                 int cantidad;
 
+                this.txtPrecio.Text = this.txtPrecio.Text.Replace(".", ",");
+
 
                 if (double.TryParse(this.txtPrecio.Text, out precio) && int.TryParse(this.txtId.Text, out idProducto) &&
                     int.TryParse(this.txtCantidad.Text, out cantidad))

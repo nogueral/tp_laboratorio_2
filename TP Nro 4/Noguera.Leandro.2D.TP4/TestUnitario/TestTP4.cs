@@ -15,22 +15,22 @@ namespace TestUnitario
         [ExpectedException(typeof(ProductosException))]
         public void ProductoRepetido_Test()
         {
-            Inventario inventario = new Inventario();
+            bool retorno;
             ProductoPerecedero p1 = new ProductoPerecedero("Leche", 1, 62, 30, Producto.ETipo.perecedero);
 
-            inventario += p1;
-            inventario += p1;
+            retorno = Inventario.Productos + p1;
+            retorno = Inventario.Productos + p1;
         }
 
         /// <summary>
-        /// Verifica que se instancie la lista de tipo Venta al instanciar un objeto de tipo Inventario
+        /// Verifica que se instancie la lista de tipo Producto al instanciar un objeto de tipo Venta
         /// </summary>
         [TestMethod]
-        public void ListaVentas_Test()
+        public void ListaProductos_Test()
         {
-            Inventario inventario = new Inventario();
+            Venta v = new Venta();
 
-            Assert.IsNotNull(inventario.Ventas);
+            Assert.IsNotNull(v.Items);
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Entidades
 
         #region Metodos
         /// <summary>
-        /// Guarda un objeto de tipo inventario en archivo XML
+        /// Guarda el listado de ventas en archivo XML
         /// </summary>
         /// <param name="inv"></param>
         /// <returns>true si lo guardo, false caso contrario</returns>
@@ -61,9 +61,9 @@ namespace Entidades
         }
 
         /// <summary>
-        /// Lee un objeto de tipo inventario guardado en un archivo XML
+        /// Lee el listado de ventas guardado en un archivo XML
         /// </summary>
-        /// <returns>el objeto de tipo inventario con los datos cargados</returns>
+        /// <returns>una lista de tipo List<Venta></returns>
         public static List<Venta> Leer()
         {
             List<Venta> datos = new List<Venta>();
@@ -77,10 +77,10 @@ namespace Entidades
         }
 
         /// <summary>
-        /// muestra todos los datos cargados en el objeto inventario
+        /// muestra el listado de productos cargados
         /// </summary>
         /// <returns>los datos cargados</returns>
-        public static string Mostrar()
+        public static string MostrarProductos()
         {
             StringBuilder sb = new StringBuilder();
 

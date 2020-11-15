@@ -20,6 +20,9 @@ namespace Entidades
 
         #region Constructor
 
+        /// <summary>
+        /// Constructor estatico. Asocia los metodos al delegado.
+        /// </summary>
         static Venta()
         {
             delVentas += CalcularMontoTotal;
@@ -187,7 +190,7 @@ namespace Entidades
         }
 
         /// <summary>
-        /// agrega un nuevo producto a la venta. verifica previamente que exista stock suficiente.
+        /// agrega un nuevo producto a la venta a traves de su id. verifica previamente que exista stock suficiente.
         /// </summary>
         /// <param name="venta"></param>
         /// <param name="id"></param>

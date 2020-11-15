@@ -21,7 +21,7 @@ namespace Entidades
         public ProductoDAO()
         {
             conexion = new SqlConnection();
-            conexion.ConnectionString = "Data Source=.\\sqlexpress; Initial Catalog=TP4; Integrated Security=True;";
+            conexion.ConnectionString = "Data Source=.\\sqlexpress; Initial Catalog=TPNro4; Integrated Security=True;";
             comando = new SqlCommand();
             comando.Connection = conexion;
             comando.CommandType = CommandType.Text;
@@ -64,8 +64,14 @@ namespace Entidades
         /// <returns>True si se guardo, false caso contrario</returns>
         public bool InsertarProducto(Producto prod)
         {
-            string sql = "Insert into Productos(descripcion, idProducto, precio, cantidad, tipoProducto) values('" + prod.Descripcion +
-                "', " + prod.Id + ", " + prod.Precio.ToString() + ", " + prod.Cantidad.ToString() + ", '" + prod.Tipo.ToString() + "')"; 
+            string sql = "Insert into Productos(descripcion, idProducto, precio, cantidad, tipoProducto) " +
+                "values(@auxDescripcion, @auxID, @auxPrecio, @auxCantidad, @auxTipo)";
+
+            comando.Parameters.Add(new SqlParameter("@auxDescripcion", prod.Descripcion));
+            comando.Parameters.Add(new SqlParameter("@auxID", prod.Id));
+            comando.Parameters.Add(new SqlParameter("@auxPrecio", prod.Precio));
+            comando.Parameters.Add(new SqlParameter("@auxCantidad", prod.Cantidad));
+            comando.Parameters.Add(new SqlParameter("@auxTipo", prod.Tipo.ToString()));
 
             return EjecutarNonQuery(sql);
         }
@@ -76,9 +82,14 @@ namespace Entidades
         /// <returns>True si se modifico, false caso contrario</returns>
         public bool ModificarProducto(Producto prod)
         {
-            string sql = "Update Productos Set descripcion = '" + prod.Descripcion +
-                "', idProducto = " + prod.Id + ", precio = " + prod.Precio.ToString() + ", cantidad = " + prod.Cantidad.ToString() +
-                ", tipoProducto = '" + prod.Tipo.ToString() + "' where idProducto = " + prod.Id;
+            string sql = "Update Productos Set descripcion = @auxDescripcion, idProducto = @auxID, " +
+                "precio = @auxPrecio, cantidad = @auxCantidad, tipoProducto = @auxTipo where idProducto = @auxID";
+
+            comando.Parameters.Add(new SqlParameter("@auxDescripcion", prod.Descripcion));
+            comando.Parameters.Add(new SqlParameter("@auxID", prod.Id));
+            comando.Parameters.Add(new SqlParameter("@auxPrecio", prod.Precio));
+            comando.Parameters.Add(new SqlParameter("@auxCantidad", prod.Cantidad));
+            comando.Parameters.Add(new SqlParameter("@auxTipo", prod.Tipo.ToString()));
 
             return EjecutarNonQuery(sql);
         }
@@ -90,7 +101,9 @@ namespace Entidades
         /// <returns>true si se elimino, false caso contrario</returns>
         public bool EliminarProducto(Producto prod)
         {
-            string sql = "Delete Productos where id = " + prod.Id.ToString();
+            string sql = "Delete Productos where id = @auxID";
+
+            comando.Parameters.Add(new SqlParameter("@auxID", prod.Id));
 
             return EjecutarNonQuery(sql);
         }
@@ -116,12 +129,12 @@ namespace Entidades
                     if (tipo == "perecedero")
                     {
                         productos.Add(new ProductoPerecedero(reader["descripcion"].ToString(), int.Parse(reader["idProducto"].ToString()),
-                        int.Parse(reader["Precio"].ToString()), int.Parse(reader["cantidad"].ToString()), Producto.ETipo.perecedero));
+                        double.Parse(reader["Precio"].ToString()), int.Parse(reader["cantidad"].ToString()), Producto.ETipo.perecedero));
 
                     } else
                     {
                         productos.Add(new ProductoNoPerecedero(reader["descripcion"].ToString(), int.Parse(reader["idProducto"].ToString()),
-                        int.Parse(reader["Precio"].ToString()), int.Parse(reader["cantidad"].ToString()), Producto.ETipo.noPerecedero));
+                        double.Parse(reader["Precio"].ToString()), int.Parse(reader["cantidad"].ToString()), Producto.ETipo.noPerecedero));
                     }
 
 
@@ -165,12 +178,12 @@ namespace Entidades
                     if (tipo == "perecedero")
                     {
                         prod = new ProductoPerecedero(reader["descripcion"].ToString(), id,
-                        int.Parse(reader["Precio"].ToString()), int.Parse(reader["cantidad"].ToString()), Producto.ETipo.perecedero);
+                        double.Parse(reader["Precio"].ToString()), int.Parse(reader["cantidad"].ToString()), Producto.ETipo.perecedero);
 
                     } else
                     {
                         prod = new ProductoNoPerecedero(reader["descripcion"].ToString(), id,
-                        int.Parse(reader["Precio"].ToString()), int.Parse(reader["cantidad"].ToString()), Producto.ETipo.noPerecedero);
+                        double.Parse(reader["Precio"].ToString()), int.Parse(reader["cantidad"].ToString()), Producto.ETipo.noPerecedero);
                     }
                 }
 
