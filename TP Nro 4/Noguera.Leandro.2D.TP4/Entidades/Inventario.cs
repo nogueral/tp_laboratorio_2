@@ -77,7 +77,7 @@ namespace Entidades
         }
 
         /// <summary>
-        /// muestra el listado de productos cargados
+        /// muestra el listado de productos cargados en la base de datos
         /// </summary>
         /// <returns>los datos cargados</returns>
         public static string MostrarProductos()

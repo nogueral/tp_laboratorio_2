@@ -34,7 +34,7 @@ namespace FormCargaProducto
         }
 
         /// <summary>
-        /// Crea un objeto de tipo Producto y lo agrega a la base de dato
+        /// Crea un objeto de tipo Producto y lo agrega a la base de datos
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

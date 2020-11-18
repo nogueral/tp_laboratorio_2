@@ -181,6 +181,25 @@ namespace Test
 
             try
             {
+                Console.WriteLine("\nLOS METODOS DE EXTENSION CALCULAN EL STOCK TOTAL CONTENIDO EN LA BASE DE DATOS Y LA SUMATORIA DE MONTOS TOTALES DEL LISTADO DE VENTAS");
+                Console.WriteLine();
+
+                Console.WriteLine($"Stock total: {Inventario.Productos.StockTotal()}");
+                Console.WriteLine($"Acumulado de ventas: ${Inventario.Ventas.TotalVentas()}");
+
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+
+            Console.WriteLine("Presione una tecla para continuar...");
+            Console.ReadKey();
+            Console.Clear();
+
+            try
+            {
                 Console.WriteLine("\nSE GUARDA EL LISTADO DE VENTAS EN UN ARCHIVO XML");
                 Console.WriteLine();
                 if (Inventario.Guardar(Inventario.Ventas))

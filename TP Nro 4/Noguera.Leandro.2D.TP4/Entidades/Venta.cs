@@ -123,16 +123,9 @@ namespace Entidades
         {
             if (venta != null)
             {
-                for (int i = 0; i < venta.Items.Count; i++)
+                foreach (Producto item in venta.items)
                 {
-                    for (int j = 0; j < Inventario.Productos.Count; j++)
-                    {
-                        if (venta.Items[i].Id == Inventario.Productos[j].Id)
-                        {
-                            venta.MontoTotal += Inventario.Productos[j].Precio;
-                            break;
-                        }
-                    }
+                    venta.montoTotal += item.Precio;
                 }
 
                 return true;

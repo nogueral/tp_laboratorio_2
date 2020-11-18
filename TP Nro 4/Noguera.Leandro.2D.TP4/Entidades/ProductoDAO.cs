@@ -40,7 +40,9 @@ namespace Entidades
             try
             {
                 comando.CommandText = sql;
+
                 conexion.Open();
+
                 comando.ExecuteNonQuery();
                 ejecuto = true;
             }
@@ -119,7 +121,9 @@ namespace Entidades
             try
             {
                 comando.CommandText = "Select * from Productos";
+
                 conexion.Open();
+
                 SqlDataReader reader = comando.ExecuteReader();
 
                 while (reader.Read())
@@ -168,7 +172,9 @@ namespace Entidades
             try
             {
                 comando.CommandText = "Select * from Productos where id = " + id.ToString();
+
                 conexion.Open();
+
                 SqlDataReader reader = comando.ExecuteReader();
 
                 while (reader.Read())

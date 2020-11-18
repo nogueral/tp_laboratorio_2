@@ -141,7 +141,7 @@ namespace Entidades
         #region Sobrecarga de operadores
 
         /// <summary>
-        /// Verifica si un producto se encuentra cargado en la base de datos
+        /// Verifica si un producto se encuentra cargado en la lista
         /// </summary>
         /// <param name="productos"></param>
         /// <param name="auxProducto"></param>
@@ -161,7 +161,7 @@ namespace Entidades
         }
 
         /// <summary>
-        /// Verifica si un producto no se encuentra cargado en la base de datos
+        /// Verifica si un producto no se encuentra cargado en la lista
         /// </summary>
         /// <param name="productos"></param>
         /// <param name="auxProducto"></param>
@@ -172,7 +172,7 @@ namespace Entidades
         }
 
         /// <summary>
-        /// Verifica si un producto no esta cargado en la base de datos y lo agrega. Si existe, solo modifica los datos
+        /// Verifica si un producto no esta cargado en la base de datos y lo agrega.
         /// </summary>
         /// <param name="productos"></param>
         /// <param name="auxProducto"></param>
@@ -187,7 +187,6 @@ namespace Entidades
             }
             else
             {
-                auxProducto.Modificar();
                 throw new ProductosException("Producto previamente cargado a la base de datos, solo se modifican los datos");
             }
 
@@ -218,6 +217,11 @@ namespace Entidades
 
         #region Metodos
 
+        /// <summary>
+        /// Valida si un numero es menor a 0
+        /// </summary>
+        /// <param name="numero"></param>
+        /// <returns>true si es menor, false caso contrario</returns>
         public static bool ValidarNegativos(double numero)
         {
             if (numero < 0)
