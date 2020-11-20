@@ -246,7 +246,7 @@ namespace Entidades
         {
             if (listaVentas != v)
             {
-                delVentas(v);
+                delVentas.Invoke(v);
                 
                 return true;
             }
